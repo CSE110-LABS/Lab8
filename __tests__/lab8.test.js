@@ -2,6 +2,7 @@ describe("Basic user flow for SPA ", () => {
   beforeAll(async () => {
     await page.goto("http://127.0.0.1:5500");
     await page.waitForTimeout(500);
+    jest.setTimeout(40000);
   });
 
   // test 1 is given
@@ -141,6 +142,7 @@ describe("Basic user flow for SPA ", () => {
     const entries = await page.$$("journal-entry");
     await entries[1].click();
     const url = await page.url();
+    await page.waitForTimeout(500);
     expect(url).toBe("http://127.0.0.1:5500/#entry2");
   });
 
@@ -193,17 +195,14 @@ describe("Basic user flow for SPA ", () => {
 
   // create your own test 20
   it('Test20: When clicking on the third entry, entry page contents is correct', async() => {
-    const entries = await page.$$("journal-entry");
-    const entry = entries[2];
-    await page.waitForNavigation();
-    const data = await entry.getProperty("entry");
-    const jsonEntry = await data.jsonValue();
+    const entry = await page.$('entry-page');
+    const jsonEntry = await (await entry.getProperty('entry')).jsonValue();
 
     expect(jsonEntry.title).toMatch("Ogres are like onions");
     expect(jsonEntry.date).toMatch("4/27/2021"); 
     expect(jsonEntry.content).toMatch("Onions have layers. Ogres have layers. Onions have layers. You get it? We both have layers.");
     expect(jsonEntry.image.src).toMatch("https://advancelocal-adapter-image-uploads.s3.amazonaws.com/image.syracuse.com/home/syr-media/width2048/img/entertainment_impact/photo/shrek-donkeyjpg-daa31aa2b5bedfaa.jpg");
     expect(jsonEntry.image.alt).toMatch("shrek and donkey looking confused");
-    expect(data.audio).toBeUndefined();
-  }, 30000);
+    expect(jsonEntry.audio).toBeUndefined();
+  }, 40000);
 });
