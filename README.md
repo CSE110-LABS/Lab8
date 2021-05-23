@@ -18,4 +18,4 @@
     * The tests will be run without a browser UI.
 
 5. What would your beforeAll callback look like if you wanted to start from the settings page before every test case?
-    * 
+    * Because updating the url wouldn't work, we could get to the settings page by manually clicking the settings image & we would start from the settings page before each test case. In this case, we can use the code: await page.click('header > img');
