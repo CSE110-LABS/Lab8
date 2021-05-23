@@ -15,7 +15,7 @@
     * Yes, we should use a unit test to test the "max message length" feature of a messaging application. This feature is small enough to test as its only function is to prevent the user from typing more than 80 characters. It's a single operation that can't really be broken down into further components.
 
 4. What do you expect to happen if we run our puppeteer tests with the field “headless” set to true?
-    * 
+    * The tests will be run without a browser UI.
 
 5. What would your beforeAll callback look like if you wanted to start from the settings page before every test case?
     * 
